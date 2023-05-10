@@ -1,4 +1,5 @@
 let g_names_images_tuples = [];
+let g_current_indexes = [];
 
 async function getText(file) {
   let x = await fetch(file);
@@ -7,6 +8,7 @@ async function getText(file) {
 }
 
 async function load(){
+	// load all people list
 	let people_txt = await getText("people.txt");
 	people_txt = people_txt.replaceAll("\r","")
 	people_lines = people_txt.split("\n");
@@ -16,23 +18,39 @@ async function load(){
 			throw "file not in correct format";
 		}
 	}
+	
+	// load personal people list
 }
 
 let current_people_index = 0;
 let is_name_shown = false;
 
+function normalize_name(name){
+		name = name.toLowerCase();
+		name = name.replace("mr.","");
+		if(name[0] == " "){
+			name = name.substring(1);
+		}
+		name = name[0].toUpperCase() + name.substring(1);
+		return name;
+}
+
 function redraw(){
-	document.getElementById("img").src=g_names_images_tuples[current_people_index][1];
+	let current_repository_index = g_current_indexes[current_people_index]
+	let person = g_names_images_tuples[current_repository_index];
+	document.getElementById("img").src = person[1];
+	let name;
 	if(is_name_shown){
-		document.getElementById("name").innerHTML=g_names_images_tuples[current_people_index][0];
+		name = normalize_name(person[0]);
 	}else{
-		document.getElementById("name").innerHTML="";
+		name = "";
 	}
+	document.getElementById("name").innerHTML=name;
 }
 
 function roll_new(){
 	is_name_shown = false;
-	current_people_index = Math.floor(Math.random() * g_names_images_tuples.length);
+	current_people_index = Math.floor(Math.random() * g_current_indexes.length);
 }
 
 async function onloadfn(){
@@ -50,5 +68,23 @@ function onclickfn(){
 	}else{
 		is_name_shown = true;
 	}
+	redraw();
+}
+
+function onAddClicked(){
+	let new_people_index;
+	while(true){
+		new_people_index = Math.floor(Math.random() * g_names_images_tuples.length);
+		if(!g_current_indexes.includes(new_people_index)){
+			break;
+		}
+	}
+	g_current_indexes.push(new_people_index);
+	
+}
+
+function onRemoveClicked(){
+	g_current_indexes.splice(current_people_index,1);
+	roll_new();
 	redraw();
 }
