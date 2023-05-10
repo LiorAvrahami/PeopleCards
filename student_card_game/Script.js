@@ -21,7 +21,8 @@ async function load(){
 	
 	// load personal people list
 	try {
-		g_current_indexes = localStorage['indexes']    
+		g_current_indexes = localStorage['indexes']
+		Array.isArray(g_current_indexes);
     } catch (error) {
 		g_current_indexes = [];
 		for(let i = 0; i < 5; i++){
