@@ -24,7 +24,7 @@ async function load(){
 		g_current_indexes = localStorage['indexes']    
     } catch (error) {
 		g_current_indexes = [];
-		for(let i = 0; i < 5; i++;){
+		for(let i = 0; i < 5; i++){
 			onAddClicked();
 		}
 	}
