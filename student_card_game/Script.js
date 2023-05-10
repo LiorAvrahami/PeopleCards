@@ -20,6 +20,15 @@ async function load(){
 	}
 	
 	// load personal people list
+	try {
+		g_current_indexes = localStorage['indexes']    
+    } catch (error) {
+		g_current_indexes = [];
+		for(let i = 0; i < 5; i++;){
+			onAddClicked();
+		}
+	}
+	
 }
 
 let current_people_index = 0;
@@ -80,11 +89,13 @@ function onAddClicked(){
 		}
 	}
 	g_current_indexes.push(new_people_index);
+	localStorage['indexes'] = g_current_indexes;
 	
 }
 
 function onRemoveClicked(){
 	g_current_indexes.splice(current_people_index,1);
+	localStorage['indexes'] = g_current_indexes;
 	roll_new();
 	redraw();
 }
