@@ -21,7 +21,7 @@ async function load(){
 	
 	// load personal people list
 	try {
-		g_current_indexes = localStorage['indexes']
+		g_current_indexes = JSON.parse(localStorage['indexes']);
 		if(!Array.isArray(g_current_indexes)){
 			throw "error";
 		}
@@ -99,13 +99,13 @@ function onAddClicked(){
 		}
 	}
 	g_current_indexes.push(new_people_index);
-	localStorage['indexes'] = g_current_indexes;
+	localStorage['indexes'] = JSON.stringify(g_current_indexes);
 	
 }
 
 function onRemoveClicked(){
 	g_current_indexes.splice(current_people_index,1);
-	localStorage['indexes'] = g_current_indexes;
+	localStorage['indexes'] = JSON.stringify(g_current_indexes);
 	roll_new();
 	redraw();
 }
