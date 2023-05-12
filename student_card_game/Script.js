@@ -62,7 +62,14 @@ function redraw(){
 
 function roll_new(){
 	is_name_shown = false;
-	current_people_index = Math.floor(Math.random() * g_current_indexes.length);
+	let new_index = 0;
+	while(true){
+		new_index = Math.floor(Math.random() * g_current_indexes.length);
+		if(new_index != current_people_index || g_current_indexes.length == 1){
+			break;
+		}
+	}
+	current_people_index = new_index;
 }
 
 async function onloadfn(){
