@@ -30,8 +30,7 @@ async function load(){
 		for(let i = 0; i < 5; i++){
 			onAddClicked();
 		}
-	}
-	
+	}	
 }
 
 let current_people_index = 0;
@@ -40,6 +39,8 @@ let is_name_shown = false;
 function normalize_name(name){
 		name = name.toLowerCase();
 		name = name.replace("mr.","");
+		name = name.replace("ms.","");
+		name = name.spilt(" ")[0];
 		if(name[0] == " "){
 			name = name.substring(1);
 		}
@@ -57,7 +58,8 @@ function redraw(){
 	}else{
 		name = "";
 	}
-	document.getElementById("name").innerHTML=name;
+	document.getElementById("name").innerHTML = name;
+	document.getElementById("num_people").innerHTML = g_current_indexes.length;
 }
 
 function roll_new(){
@@ -100,7 +102,8 @@ function onAddClicked(){
 	}
 	g_current_indexes.push(new_people_index);
 	localStorage['indexes'] = JSON.stringify(g_current_indexes);
-	
+	current_people_index = g_current_indexes.length - 1;
+	redraw();
 }
 
 function onRemoveClicked(){
