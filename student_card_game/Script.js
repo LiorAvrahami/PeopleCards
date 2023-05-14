@@ -40,7 +40,7 @@ function normalize_name(name){
 		name = name.toLowerCase();
 		name = name.replace("mr.","");
 		name = name.replace("ms.","");
-		name = name.spilt(" ")[0];
+		name = name.split(" ")[0];
 		if(name[0] == " "){
 			name = name.substring(1);
 		}
