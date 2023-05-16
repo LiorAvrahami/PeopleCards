@@ -40,10 +40,10 @@ function normalize_name(name){
 		name = name.toLowerCase();
 		name = name.replace("mr.","");
 		name = name.replace("ms.","");
-		name = name.split(" ")[0];
 		if(name[0] == " "){
 			name = name.substring(1);
 		}
+		name = name.split(" ")[0];
 		name = name[0].toUpperCase() + name.substring(1);
 		return name;
 }
