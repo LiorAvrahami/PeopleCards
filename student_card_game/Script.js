@@ -66,7 +66,7 @@ function redraw(){
 
 /*the rolling algorithem:
 	was_person_chosen is a binary array. it's value is true at the indexes of the people that were chosen more times then the others.
-	when a new person is rolled, this is done by rolling a large number (100 times number of people), and iterating over the people array
+	when a new person is rolled, this is done by rolling a large number (1000 times number of people), and iterating over the people array
 	every time a person which has not yet been chosen is passed, the number is reduced by 1. when the number hits 0 that person is chosen.
 */
 let was_person_chosen = [];
@@ -81,7 +81,7 @@ function roll_new(){
 		num_not_chosen = was_person_chosen.length - get_number_of_were_chosen();
 	}
 	
-	rand_travle = Math.floor(Math.random() * g_current_indexes.length);
+	rand_travle = Math.floor(Math.random() * g_current_indexes.length * 1000);
 	rand_travle = rand_travle % (num_not_chosen)
 	let current_index = 0
 	while(true){
@@ -94,7 +94,14 @@ function roll_new(){
 		}
 		current_index++
 	}
-	current_people_index = current_index
+	
+	if(current_people_index != current_index){
+		current_people_index = current_index
+		was_person_chosen[current_people_index] = true;
+	}else{
+		/* same person was chosen twice, roll again */
+		roll_new();
+	}
 }
 
 function get_number_of_were_chosen(){
