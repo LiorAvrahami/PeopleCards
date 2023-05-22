@@ -61,7 +61,7 @@ function redraw(){
 		name = "";
 	}
 	document.getElementById("name").innerHTML = name;
-	document.getElementById("num_people").innerHTML = g_current_indexes.length;
+	document.getElementById("num_people").innerHTML = get_number_of_were_chosen().toString() + "/" + g_current_indexes.length.toString();
 }
 
 /*the rolling algorithem:
