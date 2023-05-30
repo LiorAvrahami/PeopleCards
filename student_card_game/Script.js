@@ -97,7 +97,6 @@ function roll_new(){
 	
 	if(current_people_index != current_index){
 		current_people_index = current_index
-		was_person_chosen[current_people_index] = true;
 	}else{
 		/* same person was chosen twice, roll again */
 		roll_new();
@@ -140,6 +139,7 @@ function onclickfn(){
 	if(is_name_shown){
 		roll_new();
 	}else{
+		was_person_chosen[current_people_index] = true;
 		is_name_shown = true;
 	}
 	redraw();
@@ -157,6 +157,7 @@ function onAddClicked(){
 	localStorage['indexes'] = JSON.stringify(g_current_indexes);
 	current_people_index = g_current_indexes.length - 1;
 	append_to_were_people_chosen_array();
+	is_name_shown = true;
 	redraw();
 }
 
